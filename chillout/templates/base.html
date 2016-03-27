@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Чилл-аут{% block title %}{% endblock %}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+
+    body {
+      line-height: 1;
+    }
+
+    ol, ul {
+      list-style: none;
+    }
+
+    blockquote, q {
+      quotes: none;
+    }
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+      content: '';
+      content: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    body {
+      background: linear-gradient(#EECD86, #7A3E48);
+      background-repeat: no-repeat;
+    }
+
+    .whole {
+      position: relative;
+      width: 960px;
+      margin: 0 auto;
+    }
+
+    .anon {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .anon > a {
+      font-size: 14px;
+      color: #7A3E48;
+    }
+
+    .anon > a:nth-child(n+2) {
+      padding-left: 2px;
+      border-left: 2px solid #7A3E48;
+    }
+
+    header > h1 {
+      display: none;
+    }
+
+    .logo {
+      overflow: auto;
+    }
+
+    .logo > p {
+      float: left;
+      width: 230px;
+      margin: 173px 55px 0 57px;
+      font-family: "Monotype Corsiva";
+      font-size: 18px;
+      font-weight: bold;
+      color: #7A3E48;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .logo img {
+      float: left;
+      max-width: 100%;
+      height: auto;
+      margin-right: 40px;
+    }
+
+    .login {
+      float: left;
+      width: 288px;
+      height: 121px;
+      margin-top: 165px;
+      background-image: url("/static/images/login_card.png");
+    }
+
+    .login > form {
+      margin: 32px 0 0 127px;
+    }
+
+    .login input[name="username"] {
+      display: block;
+      width: 150px;
+      margin-bottom: 17px;
+      padding-left: 6px;
+      border: 0;
+      outline: 0;
+      background: none;
+      font-family: Arial;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .login input[name="password"] {
+      display: block;
+      width: 150px;
+      margin-bottom: 11px;
+      padding-left: 6px;
+      border: 0;
+      outline: 0;
+      background: none;
+      font-family: Arial;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .login button {
+      display: block;
+      width: 56px;
+      height: 15px;
+      margin-left: 83px;
+      border: 0;
+      outline: 0;
+      background: none;
+      font-size: 10px;
+    }
+
+    .logout {
+      float: left;
+      width: 288px;
+      height: 121px;
+      margin-top: 165px;
+      background-image: url("/static/images/login_card.png");
+    }
+
+    .logout > * {
+      display: block;
+      margin-left: 130px;
+      font-family: Arial;
+      color: #7A3E48;
+    }
+
+    .logout > a:first-child {
+      width: 125px;
+      margin-top: 7px;
+      font-size: 14px;
+    }
+
+    .logout > span:first-of-type {
+      width: 150px;
+      margin-top: 13px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .logout > span:last-of-type {
+      width: 150px;
+      margin-top: 23px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .logout > a:last-child {
+      width: 78px;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    nav {
+      height: 60px;
+      margin-top: 30px;
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+      border-radius: 10px 10px 40px 40px;
+      background: linear-gradient(#9F6164, #660033, #9F6164);
+      box-shadow: 0 20px 10px -10px rgba(0, 0, 0, 0.3);
+    }
+
+    nav > a {
+      display: inline-block;
+      width: 148px;
+      height: 100%;
+      padding-top: 12px;
+      font-family: Gabriola;
+      font-size: 27px;
+      color: white;
+      text-align: center;
+    }
+
+    nav > span {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .main {
+      margin-top: 30px;
+    }
+
+    footer {
+      margin-top: 20px;
+      height: 50px;
+      background: linear-gradient(#9F6164, #660033, #9F6164);
+      border-radius: 20px;
+    }
+  </style>
+  {% block style %}{% endblock %}
+  {% block script %}{% endblock %}
+</head>
+<body>
+  <div class="whole">
+    {% if user.is_anonymous %}
+      <div class="anon">
+        <a href="{% url 'registration' %}">Регистрация</a>
+        <a href="">Забыли пароль?</a>
+        <a href="">Повторная активация</a>
+      </div>
+    {% endif %}
+
+    <header>
+      <h1>Чилл-аут</h1>
+
+      <div class="logo">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pellentesque malesuada ornare. Integer in quam et augue sollicitudin cursus.</p>
+
+        <a href="{% url 'main_page' %}"><img src="/static/images/logo.png" alt="Чилл-аут"></a>
+
+        {% if user.is_anonymous %}
+          <div class="login">
+            <form method="post" action="{% url 'main_page' %}">
+              {% csrf_token %}
+              <input type="text" name="username" placeholder="Email">
+              <input type="password" name="password" placeholder="Пароль">
+              <input type="hidden" name="next" value="{{ request.path }}">
+              <button type="submit">Войти</button>
+            </form>
+          </div>
+        {% else %}
+          <div class="logout">
+            <a href="{% url 'profile_detail' %}">Открыть профиль</a>
+            <span title="{{ user.profile.first_name }}">{{ user.profile.get_truncated_first_name }}</span>
+            <span title="{{ user.profile.last_name }}">{{ user.profile.get_truncated_last_name }}</span>
+            <a href="{% url 'logout' %}?next=/">Выйти</a>
+          </div>
+        {% endif %}
+      </div>
+
+      <nav>
+        <a href="{% url 'main_page' %}">Главная</a><span></span>
+        <a href="{% url 'category_list' %}">Меню</a><span></span>
+        <a href="">Здоровье</a><span></span>
+        <a href="">Доставка</a><span></span>
+        <a href="">О нас</a><span></span>
+        <a href="">Контакты</a>
+      </nav>
+    </header>
+
+    <div class="main">
+      {% block main %}{% endblock %}
+    </div>
+
+    <footer>
+      
+    </footer>
+  </div>
+</body>
+</html>

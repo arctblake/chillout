@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ category }}</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script>
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+              type: 'column'
+            },
+            title: {
+              text: 'Спрос'
+            },
+            xAxis: {
+              type: 'category',
+              labels: {
+                rotation: -45,
+                style: {
+                  fontSize: '13px',
+                  fontFamily: 'Verdana, sans-serif'
+                }
+              }
+            },
+            yAxis: {
+              min: 0,
+              title: {
+                text: 'Количество'
+              }
+            },
+            legend: {
+              enabled: false
+            },
+            series: [{
+              name: 'Количество',
+              data: [].slice.call(document.querySelectorAll('.data > span')).map(function(a) { return [a.innerHTML.split('|')[0], +a.innerHTML.split('|')[1]]; }),
+              dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.0f}',
+                y: 10,
+                style: {
+                  fontSize: '13px',
+                  fontFamily: 'Verdana, sans-serif'
+                }
+              }
+            }]
+        });
+      });
+  </script>
+</head>
+<body>
+  <div id="container" style="width: 960px; height: 400px; margin: 100px auto 0;"></div>
+
+  <div class="data" style="display:none;">
+    {% for dish in dish_list %}
+      <span>{{ dish.name }}|{{ dish.popularity }}</span>
+    {% endfor %}
+  </div>
+</body>
+</html>

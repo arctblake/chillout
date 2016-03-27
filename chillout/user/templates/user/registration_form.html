@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %} - Регистрация{% endblock %}
+
+{% block style %}
+  <style>
+  </style>
+{% endblock %}
+
+{% block script %}
+  <script>
+    window.onload = function() {
+      var header = document.querySelector('header');
+      document.body.style.minHeight = document.documentElement.clientHeight + 'px';
+      document.querySelector('.main').style.minHeight = document.documentElement.clientHeight - (parseFloat(getComputedStyle(header).height) + 30) - 70 + 'px';
+    }
+  </script>
+{% endblock %}
+
+{% block main %}
+  <div class="registration">
+    <form method="post" action="{% url 'registration' %}">
+      {% csrf_token %}
+    	{{ form.as_p }}
+    	<button type="submit">Зарегистрироваться</button>
+    </form>
+  </div>
+{% endblock %}

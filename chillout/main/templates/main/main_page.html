@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block style %}
+  <style>
+    .w-offer-make-yourself-health {
+      text-align: center;
+      line-height: 1.2;
+      box-shadow: 10px 0 10px rgba(0, 0, 0, 0.3), -10px 0 10px rgba(0, 0, 0, 0.3);
+      overflow: auto;
+    }
+
+    .offer, .make-yourself, .health {
+      float: left;
+      width: 320px;
+    }
+
+    .offer > img, .make-yourself > img, .health > img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .offer > div, .health > div {
+      height: 267px;
+      padding-top: 20px;
+      overflow: hidden;
+    }
+
+    .offer > div {
+      background: #5B7290;
+    }
+
+    .make-yourself > div {
+      height: 263px;
+      padding-top: 20px;
+      background: #FF7182;
+      overflow: hidden;
+    }
+
+    .health > div {
+      background: #6F3662;
+    }
+
+    .offer > div > span {
+      font-family: Gabriola;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .offer > div > p, .make-yourself > div > p, .health > div > p {
+      padding: 10px;
+      color: white;
+    }
+
+    .w-section-aside {
+      height: 400px;
+      margin-top: 30px;
+      background: white;
+      box-shadow: 10px 0 10px rgba(0, 0, 0, 0.3), -10px 0 10px rgba(0, 0, 0, 0.3);
+      overflow: auto;
+    }
+
+    .w-section-aside > section {
+      float: left;
+      width: 760px;
+      padding: 20px;
+    }
+
+    .w-section-aside > aside {
+      float: left;
+      width: 200px;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+  <div class="w-offer-make-yourself-health">
+    <div class="offer">
+  		<div>
+  			<span>{{ offer }}</span>
+  			<p>{{ offer_text }}</p>
+  		</div>
+  		<img src="/static/main/images/offer.jpg" alt="{{ offer }}">
+    </div>
+
+  	<div class="make-yourself">
+  	  <img src="/static/main/images/make_yourself.jpg" alt="Сделай сам">
+  		<div>
+  			<img src="/static/main/images/icon1.png" alt="иконка">
+  			<p>Donec pellentesque odio sed placerat ullamcorper. Integer ligula libero, vestibulum eu ante a, sollicitudin molestie enim. Cras dapibus augue vitae nisi imperdiet, sit amet mattis sapien congue. Nam in mi laoreet, ullamcorper mauris quis, convallis lectus.</p>
+  		</div>
+  	</div>
+
+  	<div class="health">
+  		<div>
+  			<img src="/static/main/images/icon2.png" alt="иконка">
+  			<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer lobortis maximus tortor, id varius tellus bibendum auctor. Phasellus mollis interdum sapien condimentum fermentum. Phasellus laoreet leo eget justo semper ultrices.</p>
+  		</div>
+  		<img src="/static/main/images/health.jpg" alt="Здоровье">
+  	</div>
+  </div>
+
+  <div class="w-section-aside">
+  	<section>
+  	  <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+  		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pellentesque malesuada ornare. Integer in quam et augue sollicitudin cursus. Integer ac ipsum ac diam porttitor iaculis sit amet vitae nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce interdum risus ut sem sodales bibendum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In semper lectus orci, ultrices maximus quam imperdiet et. Vivamus ornare leo leo, nec auctor justo commodo id. Cras dapibus ut est sed interdum. Fusce sed tempus neque. Ut congue ultricies lacinia. Mauris ultricies accumsan tortor non tempus. Nulla a posuere dui, et fringilla justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ut auctor leo, eget lobortis nunc. Fusce in mollis dui.</p>
+  	</section>
+
+  	<aside>
+  		<figure>
+  			<a href=""><img src="/static/main/images/vk.png" alt="vk"></a>
+  			<figcaption>Мы в ВКонтакте</figcaption>
+  		</figure>
+  	</aside>
+  </div>
+{% endblock %}

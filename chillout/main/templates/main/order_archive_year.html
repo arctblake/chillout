@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ year }}</title>
+  <meta charset="UTF-8">
+  <style>
+    a {
+      margin-right: 5px;
+      text-decoration: none;
+      color: black;
+    }
+
+    a:hover {
+      color: blue;
+    }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script>
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+              type: 'line'
+            },
+            title: {
+              text: 'Выручка по месяцам за ' + document.querySelector('.date').innerHTML + ' год'
+            },
+            subtitle: {
+              text: 'Итого за ' + document.querySelector('.date').innerHTML + ' год: ' + document.querySelector('.total').innerHTML + 'руб.'
+            },
+            xAxis: {
+              categories: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+            },
+            yAxis: {
+              title: {
+                text: 'Сумма (руб.)'
+              }
+            },
+            plotOptions: {
+              line: {
+                dataLabels: {
+                  enabled: true
+                },
+                enableMouseTracking: true
+              }
+            },
+            series: [{
+              name: 'Выручка',
+              data: [].slice.call(document.querySelectorAll('.data > span')).map(function(a) { return +a.innerHTML; })
+            }]
+        });
+      });
+  </script>
+</head>
+<body>
+  <div id="container" style="width: 960px; height: 400px; margin: 100px auto 0;"></div>
+  <div class="months" style="width: 960px; height: 400px; margin: 50px auto 0; text-align: center;">
+    <a href="{% url 'order_archive_month' year 1 %}">Январь</a>
+    <a href="{% url 'order_archive_month' year 2 %}">Февраль</a>
+    <a href="{% url 'order_archive_month' year 3 %}">Март</a>
+    <a href="{% url 'order_archive_month' year 4 %}">Апрель</a>
+    <a href="{% url 'order_archive_month' year 5 %}">Май</a>
+    <a href="{% url 'order_archive_month' year 6 %}">Июнь</a>
+    <a href="{% url 'order_archive_month' year 7 %}">Июль</a>
+    <a href="{% url 'order_archive_month' year 8 %}">Август</a>
+    <a href="{% url 'order_archive_month' year 9 %}">Сентябрь</a>
+    <a href="{% url 'order_archive_month' year 10 %}">Октябрь</a>
+    <a href="{% url 'order_archive_month' year 11 %}">Ноябрь</a>
+    <a href="{% url 'order_archive_month' year 12 %}">Декабрь</a>
+  </div>
+
+  <span class="date" style="display:none;">{{ year }}</span>
+  <span class="total" style="display:none;">{{ total }}</span>
+  <div class="data" style="display:none;">
+    {% for month_data in month_data_list %}
+      <span>{{ month_data }}</span>
+    {% endfor %}
+  </div>
+</body>
+</html>

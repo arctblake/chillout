@@ -1,0 +1,651 @@
+{% extends "base.html" %}
+
+{% block title %} - Меню{% endblock %}
+
+{% block style %}
+  <style>
+    .main {
+      padding: 30px;
+      background: #5b233e;
+      box-shadow: 10px 0 10px rgba(0, 0, 0, 0.3), -10px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .main > img {
+      margin-bottom: 40px;
+      padding: 30px 67px 0 65px;
+      border-top: 3px dashed white;
+    }
+
+    .w-for-border {
+      padding: 5px;
+      border: 3px solid white;
+      outline: 2px solid white;
+      outline-offset: 5px;
+    }
+
+    .menu {
+      padding: 20px 0;
+      border: 2px solid white;
+      overflow: auto;
+    }
+
+    .w-menu-nav-menu-basket {
+      float: left;
+      width: 200px;
+    }
+
+    .menu-nav {
+      width: 180px;
+      margin: 0 auto;
+      border: 2px solid white;
+      border-radius: 8px;
+    }
+
+    .menu-nav > span {
+      display: block;
+      width: 100%;
+      height: 46px;
+      padding: 12px 0 5px;
+      font-family: "Monotype Corsiva";
+      font-size: 22px;
+      color: white;
+      text-align: center;
+    }
+
+    .menu-nav > span:first-child {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    .menu-nav > span:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    .menu-nav > span:hover {
+      background: white;
+      color: black;
+      cursor: pointer;
+    }
+
+    .menu-basket {
+      margin-top: 100px;
+      color: white;
+    }
+
+    .menu-basket > img {
+      margin: 0 0 15px 38px;
+    }
+
+    .menu-basket > span:first-of-type {
+      display: block;
+      width: 160px;
+      margin: 0 auto;
+      padding: 10px;
+      border: 1px solid white;
+      text-align: center;
+    }
+
+    .basket-item {
+      position: relative;
+      width: 160px;
+      margin: 20px auto 0;
+      border: 1px solid white;
+      border-radius: 5px;
+    }
+
+    .basket-item > img {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+    }
+
+    .basket-item > p:first-of-type {
+      margin: 15px 0 15px 5px;
+      font-size: 14px;
+    }
+
+    .add-sub {
+      margin-left: 35px;
+      padding: 10px 0 10px 18px;
+      border: 1px solid white;
+      border-right: 0;
+    }
+
+    .add-sub > span {
+      display: inline-block;
+      width: 30px;
+      font-size: 25px;
+    }
+
+    .add-sub > img:first-child {
+      margin-right: 12px;
+    }
+
+    .basket-item > p:nth-of-type(2) {
+      display: none;
+    }
+
+    .basket-item > p:last-child {
+      margin-left: 35px;
+      padding: 5px;
+      border-left: 1px solid white;
+      text-align: center;
+    }
+
+    .menu-basket > span:last-child {
+      display: block;
+      width: 160px;
+      margin: 20px auto 0;
+      padding: 10px;
+      background: white;
+      color: black;
+      text-align: center;
+    }
+
+    .menu-basket > span:last-child:hover {
+      background: #303030;
+      color: white;
+      cursor: pointer;
+    }
+
+    .basket-item img:hover {
+      cursor: pointer;
+    }
+
+    .catalog {
+      float: left;
+      width: 680px;
+      overflow: auto;
+    }
+
+    .sort-buttons {
+      margin: 0 4px 20px 0;
+      text-align: right;
+    }
+
+    .sort-buttons > span {
+      display: inline-block;
+      width: 130px;
+      height: 30px;
+      margin-right: 5px;
+      padding: 7px 0;
+      background: #34ACAF;
+      font-family: Gabriola;
+      font-size: 18px;
+      color: white;
+      text-align: center;
+    }
+
+    .sort-buttons > span:hover {
+      cursor: pointer;
+    }
+
+    .dish {
+      position: relative;
+      float: left;
+      margin: 0 6px 6px 0;
+    }
+
+    .dish:hover > .description {
+      display: block;
+    }
+
+    .description {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 220px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      overflow: hidden;
+    }
+
+    .slug, .popularity {
+      display: none;
+    }
+
+    .price {
+      position: absolute;
+      bottom: 35px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: rgba(91, 35, 62, 0.4);
+      font-family: "Monotype Corsiva";
+      font-size: 22px;
+      color: white;
+      text-align: center;
+    }
+
+    .dish figcaption {
+      position: relative;
+      height: 32px;
+      padding-top: 7px;
+      background: white;
+      font-family: "Monotype Corsiva";
+      font-size: 20px;
+      color: #303030;
+      text-align: center;
+    }
+
+    .dish figcaption > img {
+      position: absolute;
+      top: 6px;
+      right: 5px;
+    }
+
+    .dish figcaption > img:hover {
+      cursor: pointer;
+    }
+
+    .order {
+      position: relative;
+      width: 860px;
+      margin: 200px auto 0;
+      padding: 20px;
+      border: 5px double #6F3662;
+      background: #F8DEBD;
+      overflow: auto;
+    }
+
+    .order > img {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .order > img:hover {
+      cursor: pointer;
+    }
+
+    .order > form {
+      float: left;
+      width: 300px;
+      margin-right: 40px;
+    }
+
+    .order-form-field {
+      display: block;
+      width: 100%;
+      height: 34px;
+      margin-bottom: 5px;
+      padding-left: 5px;
+      border: 2px solid black;
+    }
+
+    .order textarea {
+      display: block;
+      width: 100%;
+      height: 200px;
+      margin-bottom: 5px;
+      padding: 5px 0 0 5px;
+      border: 2px solid black;
+    }
+
+    .order select {
+      display: block;
+      margin-bottom: 15px;
+      border: 2px solid black;
+    }
+
+    .order button {
+      display: block;
+      width: 100px;
+      height: 34px;
+      border: 2px solid black;
+    }
+
+    .order button:hover {
+      cursor: pointer;
+    }
+
+    .order > table {
+      float: left;
+      width: 470px;
+      margin-top: 35px;
+      border: 2px solid black;
+      border-collapse: collapse;
+      text-align: right;
+    }
+
+    .order th, .order td {
+      padding: 5px;
+      border: 1px solid black;
+      vertical-align: middle;
+    }
+
+    .order th {
+      font-weight: bold;
+    }
+  </style>
+{% endblock %}
+
+{% block script %}
+  <script>
+    window.onload = function() {
+      if (localStorage.length) {
+        var basket = document.querySelector('.menu-basket');
+        basket.firstElementChild.style.display = '';
+        basket.firstElementChild.nextElementSibling.style.display = '';
+        basket.lastElementChild.style.display = '';
+        var slug, value, name, price, amount, basketItem, total;
+        for (var i = 0; i < localStorage.length; i++) {
+          slug = localStorage.key(i);
+          value = localStorage.getItem(slug);
+          name = value.split('|')[0];
+          price = +value.split('|')[1];
+          amount = +value.split('|')[2];
+          basketItem = document.createElement('div');
+          basketItem.className = 'basket-item ' + slug;
+          basketItem.innerHTML = '<img src="/static/menu/images/rem.png" alt="Удалить" onclick="removeFromBasket(this)"><p>' + name + '</p><div class="add-sub"><img src="/static/menu/images/add.png" alt="Добавить" onclick="changeAmount(this, \'+\')"><span>' + amount + '</span><img src="/static/menu/images/sub.png" alt="Убавить" onclick="changeAmount(this, \'-\')"></div><p>' + slug + '</p><p>' + price + '</p>';
+
+          basket.insertBefore(basketItem, basket.lastElementChild);
+
+          total = +basket.querySelector('.menu-basket > span:first-of-type').innerHTML.split(' ')[1];
+          basket.querySelector('.menu-basket > span:first-of-type').innerHTML = 'Итого: ' + (total + price * amount);
+        }
+      }
+    }
+
+    function removeFromBasket(elem) {
+      var basket = document.querySelector('.menu-basket');
+      var basketItem = elem.parentElement;
+      var price = +basketItem.querySelector('p:last-child').innerHTML;
+      var amount = +basketItem.querySelector('.add-sub > span').innerHTML;
+      basket.removeChild(basketItem);
+      var total = +basket.querySelector('.menu-basket > span:first-of-type').innerHTML.split(' ')[1];
+      basket.querySelector('.menu-basket > span:first-of-type').innerHTML = 'Итого: ' + (total - price * amount);
+
+      localStorage.removeItem(basketItem.querySelector('p:nth-of-type(2)').innerHTML);
+
+      if (!basket.querySelector('.basket-item')) {
+        basket.firstElementChild.style.display = 'none';
+        basket.firstElementChild.nextElementSibling.style.display = 'none';
+        basket.lastElementChild.style.display = 'none';
+      }
+    }
+
+    function changeAmount(elem, action) {
+      var basket = document.querySelector('.menu-basket');
+      var basketItem = elem.closest('.basket-item');
+      var price = +basketItem.querySelector('p:last-child').innerHTML;
+      var amount = +basketItem.querySelector('.add-sub > span').innerHTML;
+      var total = +basket.querySelector('.menu-basket > span:first-of-type').innerHTML.split(' ')[1];
+      if (action === '+' && amount < 25) {
+        basketItem.querySelector('.add-sub > span').innerHTML = amount + 1 + '';
+        basket.querySelector('.menu-basket > span:first-of-type').innerHTML = 'Итого: ' + (total + price);
+
+        localStorage.setItem(basketItem.querySelector('p:nth-of-type(2)').innerHTML, basketItem.querySelector('p:first-of-type').innerHTML + '|' + price + '|' + (amount + 1));
+      }
+      else if (action === '-' && amount > 1) {
+        basketItem.querySelector('.add-sub > span').innerHTML = amount - 1 + '';
+        basket.querySelector('.menu-basket > span:first-of-type').innerHTML = 'Итого: ' + (total - price);
+
+        localStorage.setItem(basketItem.querySelector('p:nth-of-type(2)').innerHTML, basketItem.querySelector('p:first-of-type').innerHTML + '|' + price + '|' + (amount - 1));
+      }
+    }
+
+    function addToBasket(elem, existOrAnon) {
+      var item = elem.closest('.dish');
+      var slug = item.querySelector('.slug').innerHTML;
+      var name = item.querySelector('figcaption').title;
+      var price = +item.querySelector('.price > span').innerHTML;
+      var amount;
+      var basket = document.querySelector('.menu-basket');
+      var basketItem = basket.querySelector('.' + slug);
+      if (basketItem) {
+        amount = +basketItem.querySelector('.add-sub > span').innerHTML + 1;
+        basketItem.querySelector('.add-sub > span').innerHTML = amount + '';
+      }
+      else {
+        amount = 1;
+        basketItem = document.createElement('div');
+        basketItem.className = 'basket-item ' + slug;
+        basketItem.innerHTML = '<img src="/static/menu/images/rem.png" alt="Удалить" onclick="removeFromBasket(this)"><p data-exist="' + existOrAnon + '">' + name + '</p><div class="add-sub"><img src="/static/menu/images/add.png" alt="Добавить" onclick="changeAmount(this, \'+\')"><span>1</span><img src="/static/menu/images/sub.png" alt="Убавить" onclick="changeAmount(this, \'-\')"></div><p>' + slug + '</p><p>' + price + '</p>';
+
+        basket.insertBefore(basketItem, basket.lastElementChild);
+      }
+
+      if (basket.firstElementChild.style.display === 'none') {
+        basket.firstElementChild.style.display = '';
+        basket.firstElementChild.nextElementSibling.style.display = '';
+        basket.lastElementChild.style.display = '';
+      }
+
+      var total = +basket.querySelector('.menu-basket > span:first-of-type').innerHTML.split(' ')[1];
+      basket.querySelector('.menu-basket > span:first-of-type').innerHTML = 'Итого: ' + (total + price);
+
+      localStorage.setItem(slug, name + '|' + price + '|' + amount);
+    }
+
+    function changeMenuPage(elem) {
+      var locateTo = elem.dataset.href;
+      if (window.currentPath && window.currentPath === locateTo) return;
+      window.currentPath = locateTo;
+      var catalog = document.querySelector('.catalog');
+      var oldItems = catalog.querySelectorAll('.dish');
+      var menuMainPageContent = catalog.querySelector('.menu-main-page-content');
+      var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+      var xhr = new XHR();
+      xhr.open('GET', locateTo, true);
+      //xhr.setRequestHeader('HTTP_X_REQUESTED_WITH', 'XMLHttpRequest');
+      xhr.onload = function() {
+        if (xhr.status == 200) {
+          try {
+            var dishes = JSON.parse(xhr.responseText);
+          }
+          catch (err) {
+            if (menuMainPageContent) {
+              catalog.appendChild(menuMainPageContent);
+            }
+            for (var i = 0; i < oldItems.length; i++) {
+              catalog.appendChild(oldItems[i]);
+            }
+            return;
+          }
+
+          if (!catalog.querySelector('.sort-buttons')) {
+            var div = document.createElement('div');
+            div.className = 'sort-buttons';
+            div.innerHTML = '<span data-crit="price" data-order="asc" onclick="sortMenu(this)">По цене</span><span data-crit="name" data-order="asc" onclick="sortMenu(this)">По названию</span><span data-crit="popularity" data-order="asc" onclick="sortMenu(this)">По популярности</span>';
+            catalog.appendChild(div);
+          }
+
+          for (var key in dishes) {
+            var item = document.createElement('div');
+            item.className = 'dish';
+            item.innerHTML = '<figure><img src="/static/menu/images/dish.jpg" alt="' + key + '"><figcaption title="' + key + '">' + dishes[key]['truncated_name'] + '<img src="/static/menu/images/add.png" alt="Добавить" onclick="addToBasket(this, \'exist\')"></figcaption></figure><p class="description">' + dishes[key]['description'] + '</p><p class="slug">' + dishes[key]['slug'] + '</p><p class="popularity">' + dishes[key]['popularity'] + '</p><div class="price"><span>' + dishes[key]['price'] + '</span></div>';
+            catalog.appendChild(item);
+          }
+        }
+        else {
+          if (menuMainPageContent) {
+            catalog.appendChild(menuMainPageContent);
+          }
+          for (var j = 0; j < oldItems.length; j++) {
+            catalog.appendChild(oldItems[j]);
+          }
+        }
+      };
+
+      xhr.onerror = function() {
+        if (menuMainPageContent) {
+          catalog.appendChild(menuMainPageContent);
+        }
+        for (var j = 0; j < oldItems.length; j++) {
+          catalog.appendChild(oldItems[j]);
+        }
+      };
+
+      xhr.send();
+
+      for (var k = 0; k < oldItems.length; k++) {
+        catalog.removeChild(oldItems[k]);
+      }
+
+      if (menuMainPageContent) {
+        catalog.removeChild(menuMainPageContent);
+      }
+    }
+
+    function showOrderForm() {
+      var basket = document.querySelector('.menu-basket');
+      var basketItems = basket.querySelectorAll('.basket-item');
+      var orderForm = document.createElement('form');
+      orderForm.setAttribute('method', 'post');
+      orderForm.setAttribute('action', '/make-order/');
+      orderForm.innerHTML = '<input class="order-form-field" required type="text" name="name" placeholder="Ваше имя" maxlength="201"><input class="order-form-field" required type="text" name="tel" placeholder="Телефон" maxlength="30"><input class="order-form-field" required type="text" name="address" placeholder="Адрес доставки" maxlength="300"><textarea name="comment" placeholder="Здесь Вы можете оставить дополнительную информацию"></textarea><input class="order-form-field" type="text" name="delivery_time" placeholder="Время доставки"><select name="payment_by"><option selected value="in cash">Наличными</option><option value="by card">Картой</option></select>';
+      var csrf = basket.querySelector('input').cloneNode(true);
+      orderForm.appendChild(csrf);
+      var input, textarea;
+      var n = 1;
+      for (var i = 0; i < basketItems.length; i++) {
+        if (basketItems[i].querySelector('p:first-of-type').dataset.exist === 'exist') {
+          input = document.createElement('input');
+          input.setAttribute('type', 'hidden');
+          input.setAttribute('name', basketItems[i].querySelector('p:nth-of-type(2)').innerHTML);
+          input.setAttribute('value', basketItems[i].querySelector('p:first-of-type').innerHTML + '|' + basketItems[i].querySelector('p:last-child').innerHTML + '|' + basketItems[i].querySelector('.add-sub > span').innerHTML);
+          orderForm.appendChild(input);
+        }
+        else {
+          textarea = document.createElement('textarea');
+          textarea.setAttribute('name', 'anonimous' + n);
+          textarea.innerHTML = basketItems[i].querySelector('p:first-of-type').innerHTML + '|' + basketItems[i].querySelector('p:last-child').innerHTML + '|' + basketItems[i].querySelector('.add-sub > span').innerHTML;
+          textarea.style.display = 'none';
+          orderForm.appendChild(textarea);
+          n++;
+        }
+      }
+
+      var button = document.createElement('button');
+      button.setAttribute('type', 'submit');
+      button.setAttribute('onclick', 'localStorage.clear();');
+      button.innerHTML = 'Заказать';
+      orderForm.appendChild(button);
+
+      var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+      var xhr = new XHR();
+      xhr.open('GET', '/profile-data/', true);
+      xhr.onload = function() {
+        if (xhr.status == 200) {
+          try {
+            var profile_data = JSON.parse(xhr.responseText);
+          }
+          catch (err) {
+            return;
+          }
+
+          for (var key in profile_data) {
+            orderForm.querySelector('input[name="' + key + '"]').setAttribute('value', profile_data[key]);
+          }
+        }
+      };
+
+      xhr.onerror = function() {};
+      xhr.send();
+
+      var table = document.createElement('table');
+      table.innerHTML = '<tr><th>№</th><th>Наименование</th><th>Цена</th><th>Количество</th><th>Всего</th></tr>';
+      var tr, price, amount;
+      for (var j = 0; j < basketItems.length; j++) {
+        tr = document.createElement('tr');
+        price = +basketItems[j].querySelector('p:last-child').innerHTML;
+        amount = +basketItems[j].querySelector('.add-sub > span').innerHTML;
+        tr.innerHTML = '<td>' + (j + 1) + '</td><td>' + basketItems[j].querySelector('p:first-of-type').innerHTML + '</td><td>' + price + '</td><td>' + amount + '</td><td>' + (price * amount) + '</td>';
+        table.appendChild(tr);
+      }
+      tr = document.createElement('tr');
+      tr.innerHTML = '<td colspan="4"></td><td>Итого:&nbsp;' + basket.querySelector('.menu-basket > span:first-of-type').innerHTML.split(' ')[1] + '</td>';
+      table.appendChild(tr);
+
+      var wrapper = document.createElement('div');
+      wrapper.style.position = 'fixed';
+      wrapper.style.top = '0';
+      wrapper.style.left = '0';
+      wrapper.style.width = '100%';
+      wrapper.style.height = document.documentElement.clientHeight + 'px';
+      wrapper.style.background = 'rgba(0, 0, 0, 0.5)';
+
+      var orderDiv = document.createElement('div');
+      orderDiv.className = 'order';
+      orderDiv.appendChild(orderForm);
+      orderDiv.appendChild(table);
+
+      var close = document.createElement('img');
+      close.setAttribute('src', '/static/menu/images/close.png');
+      close.setAttribute('alt', 'Закрыть');
+      close.setAttribute('onclick', 'document.body.removeChild(document.body.lastElementChild);');
+
+      orderDiv.appendChild(close);
+
+      wrapper.appendChild(orderDiv);
+      document.body.appendChild(wrapper);
+    }
+
+    function sortMenu(elem) {
+      var crit = elem.dataset.crit;
+      var res = elem.dataset.order === 'asc' ? 1 : -1;
+      var catalog = document.querySelector('.catalog');
+      var items = catalog.querySelectorAll('.dish');
+      items = [].slice.call(items);
+      items.sort(function(a, b) {
+        var x, y;
+        if (crit === 'price') {
+          x = +a.querySelector('.price > span').innerHTML;
+          y = +b.querySelector('.price > span').innerHTML;
+        }
+        else if (crit === 'name') {
+          x = a.querySelector('figcaption').title.toLowerCase();
+          y = b.querySelector('figcaption').title.toLowerCase();
+        }
+        else if (crit === 'popularity') {
+          x = +a.querySelector('.popularity').innerHTML;
+          y = +b.querySelector('.popularity').innerHTML;
+        }
+
+        if (x > y) return res;
+        else if (x < y) return -res;
+      });
+
+      for (var i = 0; i < items.length; i++) {
+        catalog.appendChild(items[i]);
+      }
+
+      elem.dataset.order = res == 1 ? 'desc' : 'asc';
+    }
+  </script>
+{% endblock %}
+
+{% block main %}
+  <img src="/static/menu/images/menu_food.png" alt="Еда">
+  <div class="w-for-border">
+    <div class="menu">
+      <div class="w-menu-nav-menu-basket">
+  	    <div class="menu-nav">
+  	    	<span data-href="/menu/goryachee/" onclick="changeMenuPage(this)">Горячее</span>
+  	    	<span data-href="/menu/salaty/" onclick="changeMenuPage(this)">Салаты</span>
+  	    	<span data-href="" onclick="changeMenuPage(this)">Чай</span>
+  	    	<span data-href="" onclick="changeMenuPage(this)">Кокаин</span>
+  	    	<span data-href="" onclick="changeMenuPage(this)">Марихуана</span>
+  	    	<span data-href="" onclick="changeMenuPage(this)">Гашиш</span>
+  	    	<span data-href="" onclick="changeMenuPage(this)">Компот</span>
+  	    </div>
+
+  	    <div class="menu-basket">
+  	      <img src="/static/menu/images/basket.png" alt="Корзина" style="display:none;">
+  	      <span style="display:none;">Итого: 0</span>
+          {% csrf_token %}
+  	      <span onclick="showOrderForm()" style="display:none;">Оформить заказ</span>
+  	    </div>
+  	  </div>
+
+  	  <div class="catalog">
+        <div class="menu-main-page-content">Hello</div>
+  	  </div>
+  	</div>
+  </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ month }}.{{ year }}</title>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script>
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+              type: 'line'
+            },
+            title: {
+              text: 'Выручка по дням за ' + document.querySelector('.date').innerHTML
+            },
+            subtitle: {
+              text: 'Итого за ' + document.querySelector('.date').innerHTML + ' : ' + document.querySelector('.total').innerHTML + 'руб.'
+            },
+            xAxis: {
+              categories: document.querySelector('.days').innerHTML.split(' ')
+            },
+            yAxis: {
+              title: {
+                text: 'Сумма (руб.)'
+              }
+            },
+            plotOptions: {
+              line: {
+                dataLabels: {
+                  enabled: true
+                },
+                enableMouseTracking: true
+              }
+            },
+            series: [{
+              name: 'Выручка',
+              data: [].slice.call(document.querySelectorAll('.data > span')).map(function(a) { return +a.innerHTML; })
+            }]
+        });
+      });
+  </script>
+</head>
+<body>
+  <div id="container" style="width: 960px; height: 400px; margin: 100px auto 0;"></div>
+
+  <span class="date" style="display:none;">{{ month }}.{{ year }}</span>
+  <span class="total" style="display:none;">{{ total }}</span>
+  <div class="data" style="display:none;">
+    {% for day_data in day_data_list %}
+      <span>{{ day_data }}</span>
+    {% endfor %}
+  </div>
+  <span class="days" style="display:none;">{{ days }}</span>
+</body>
+</html>
