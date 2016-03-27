@@ -138,7 +138,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'arctblake@gmail.com'
-EMAIL_HOST_PASSWORD = '894aabb98aabbaa4'
+EMAIL_HOST_PASSWORD = 'password'
 DEFAULT_FROM_EMAIL = 'arctblake@gmail.com'
 
 
